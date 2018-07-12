@@ -1,10 +1,10 @@
-import {Api_2Application} from './application';
+import {GoldenThreadApiApplication} from './application';
 import {ApplicationConfig} from '@loopback/core';
 
-export {Api_2Application};
+export {GoldenThreadApiApplication};
 
 export async function main(options?: ApplicationConfig) {
-  const app = new Api_2Application(options);
+  const app = new GoldenThreadApiApplication(options);
   await app.boot();
   await app.start();
   return app;
