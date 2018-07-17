@@ -48,7 +48,7 @@ exports.up = function (db, cb) {
     },
     password: {
       type: 'string',
-      length: 45
+      length: 1000
     },
     paid: {
       type: 'boolean'
