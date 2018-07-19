@@ -19,6 +19,7 @@ export declare class CourseController {
     constructor(professorRepo: ProfessorRepository, courseRepo: CourseRepository, reviewRepo: ReviewRepository, courseProfessorRepo: Course_ProfessorRepository, universityRepo: UniversityRepository);
     getAllCourses(): Promise<Course[]>;
     getCourseProfessors(course_id: number): Promise<Course_Professor[]>;
+    getCourseProfessors2(professor_id: number): Promise<Course_Professor[]>;
     getCourseById(course_id: number): Promise<Course>;
     getCourseByUniversity(university_id: number): Promise<Course[]>;
     addCourseToDataBase(courseInfo: any): Promise<Course>;

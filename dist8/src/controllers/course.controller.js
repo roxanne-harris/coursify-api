@@ -44,6 +44,13 @@ let CourseController = class CourseController {
             }
         });
     }
+    async getCourseProfessors2(professor_id) {
+        return await this.courseProfessorRepo.find({
+            where: {
+                professor_id: professor_id
+            }
+        });
+    }
     async getCourseById(course_id) {
         return await this.courseRepo.findById(course_id);
     }
@@ -153,6 +160,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CourseController.prototype, "getCourseProfessors", null);
+__decorate([
+    rest_1.get('/courseprofessors2'),
+    __param(0, rest_1.param.query.number("professor_id")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], CourseController.prototype, "getCourseProfessors2", null);
 __decorate([
     rest_1.get('/course/id'),
     __param(0, rest_1.param.query.number('course_id')),

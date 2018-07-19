@@ -43,6 +43,20 @@ export class CourseController {
        
     }
 
+    @get('/courseprofessors2')
+    async getCourseProfessors2(
+        @param.query.number("professor_id") professor_id: number
+    ) {
+
+        return await this.courseProfessorRepo.find({
+            where: {
+                professor_id: professor_id
+            }
+        });
+
+       
+    }
+
 
 
 
