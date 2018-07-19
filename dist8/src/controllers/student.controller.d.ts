@@ -8,4 +8,5 @@ export declare class StudentController {
         token: string;
     }>;
     registerStudent(student: Student): Promise<Student>;
+    paymentStudent(student: Student, token: any): Promise<boolean>;
 }

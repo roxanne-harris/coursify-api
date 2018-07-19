@@ -16,15 +16,15 @@ const repository_1 = require("@loopback/repository");
 const course_professor_model_1 = require("../models/course_professor.model");
 const core_1 = require("@loopback/core");
 const loopback_datasource_juggler_1 = require("loopback-datasource-juggler");
-let CourseProfessorRepository = class CourseProfessorRepository extends repository_1.DefaultCrudRepository {
+let Course_ProfessorRepository = class Course_ProfessorRepository extends repository_1.DefaultCrudRepository {
     constructor(datasource) {
-        super(course_professor_model_1.CourseProfessor, datasource);
+        super(course_professor_model_1.Course_Professor, datasource);
         this.datasource = datasource;
     }
 };
-CourseProfessorRepository = __decorate([
+Course_ProfessorRepository = __decorate([
     __param(0, core_1.inject('datasources.db')),
     __metadata("design:paramtypes", [loopback_datasource_juggler_1.DataSource])
-], CourseProfessorRepository);
-exports.CourseProfessorRepository = CourseProfessorRepository;
+], Course_ProfessorRepository);
+exports.Course_ProfessorRepository = Course_ProfessorRepository;
 //# sourceMappingURL=course_professor.repository.js.map
