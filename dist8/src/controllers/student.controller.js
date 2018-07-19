@@ -18,6 +18,7 @@ const rest_1 = require("@loopback/rest");
 const student_repository_1 = require("../repositories/student.repository");
 const student_model_1 = require("../models/student.model");
 const jsonwebtoken_1 = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 let StudentController = class StudentController {
     constructor(studentRepo) {
         this.studentRepo = studentRepo;
@@ -38,23 +39,24 @@ let StudentController = class StudentController {
             throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
         }
         // Check that email and password are valid
-        let studentExists = !!(await this.studentRepo.count({
-            and: [
-                { email: student.email },
-                { password: student.password }
-            ],
-        }));
+        // let studentExists: boolean = !!(await this.studentRepo.count({
+        //     and: [
+        //         { email: student.email },
+        //         { password: student.password }
+        //     ],
+        // }));
+        let studentExists = !!(await this.studentRepo.count({ email: student.email }));
         if (!studentExists) {
             throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
         }
         let foundStudent = await this.studentRepo.findOne({
             where: {
-                and: [
-                    { email: student.email },
-                    { password: student.password }
-                ],
+                email: student.email
             },
         });
+        if (!await bcrypt.compare(student.password, foundStudent.password)) {
+            throw new rest_1.HttpErrors.Unauthorized("Sorry... ");
+        }
         let jwt = jsonwebtoken_1.sign({
             student: {
                 student_id: foundStudent.student_id,
@@ -93,7 +95,29 @@ let StudentController = class StudentController {
         if (studentExists) {
             throw new rest_1.HttpErrors.Unauthorized('user already exists');
         }
+        student.password = await bcrypt.hash(student.password, 10);
+        student.paid = false;
         return await this.studentRepo.create(student);
+    }
+    async paymentStudent(student, token) {
+        if (student.paid) {
+            throw new rest_1.HttpErrors.Unauthorized("Student has already paid");
+        }
+        console.log(student.paid);
+        var stripe = require("stripe")("sk_test_AzW34RUY6PjZkg8u2JXwSfnJ");
+        try {
+            const charge = stripe.charges.create({
+                amount: 50000,
+                currency: 'usd',
+                source: token,
+                receipt_email: student.email,
+            });
+            student.paid = true;
+            return true;
+        }
+        catch (error) {
+            return false;
+        }
     }
 };
 __decorate([
@@ -117,6 +141,14 @@ __decorate([
     __metadata("design:paramtypes", [student_model_1.Student]),
     __metadata("design:returntype", Promise)
 ], StudentController.prototype, "registerStudent", null);
+__decorate([
+    rest_1.post('/payment'),
+    __param(0, rest_1.requestBody()),
+    __param(1, rest_1.param.query.string("token")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [student_model_1.Student, Object]),
+    __metadata("design:returntype", Promise)
+], StudentController.prototype, "paymentStudent", null);
 StudentController = __decorate([
     __param(0, repository_1.repository(student_repository_1.StudentRepository)),
     __metadata("design:paramtypes", [student_repository_1.StudentRepository])

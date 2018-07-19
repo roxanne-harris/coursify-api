@@ -1,13 +1,13 @@
 import { DefaultCrudRepository } from "@loopback/repository";
-import { CourseProfessor } from "../models/course_professor.model";
+import { Course_Professor } from "../models/course_professor.model";
 import { inject } from "@loopback/core";
 import { DataSource } from "loopback-datasource-juggler";
 
-export class CourseProfessorRepository extends DefaultCrudRepository<
-CourseProfessor,
-typeof CourseProfessor.prototype.id>
+export class Course_ProfessorRepository extends DefaultCrudRepository<
+Course_Professor,
+typeof Course_Professor.prototype.id>
 {
     constructor(@inject('datasources.db') protected datasource: DataSource) {
-        super(CourseProfessor, datasource);
+        super(Course_Professor, datasource);
     }
 }
