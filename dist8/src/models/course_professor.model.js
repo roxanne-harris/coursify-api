@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let CourseProfessor = class CourseProfessor extends repository_1.Entity {
+let Course_Professor = class Course_Professor extends repository_1.Entity {
 };
 __decorate([
     repository_1.property({
@@ -18,21 +18,21 @@ __decorate([
         id: true
     }),
     __metadata("design:type", Number)
-], CourseProfessor.prototype, "cp_id", void 0);
+], Course_Professor.prototype, "cp_id", void 0);
 __decorate([
     repository_1.property({
         type: "number",
     }),
     __metadata("design:type", Number)
-], CourseProfessor.prototype, "course_id", void 0);
+], Course_Professor.prototype, "course_id", void 0);
 __decorate([
     repository_1.property({
         type: "number",
     }),
     __metadata("design:type", Number)
-], CourseProfessor.prototype, "professor_id", void 0);
-CourseProfessor = __decorate([
+], Course_Professor.prototype, "professor_id", void 0);
+Course_Professor = __decorate([
     repository_1.model()
-], CourseProfessor);
-exports.CourseProfessor = CourseProfessor;
+], Course_Professor);
+exports.Course_Professor = Course_Professor;
 //# sourceMappingURL=course_professor.model.js.map
